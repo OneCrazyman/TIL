@@ -8,11 +8,12 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
+  pathPrefix: `/TIL`,
   siteMetadata: {
-    title: `Oneman`,
+    title: `Oneman's TIL`,
     author: {
       name: `Oneman`,
-      summary: `꾸준히 적고 남기고 체득하자`,
+      summary: `꾸준히 남겨서 체득하자`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
     siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
