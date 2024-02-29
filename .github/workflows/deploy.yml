@@ -16,21 +16,37 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '20'
           
       - name: Install dependencies
         run: npm install
         
       - name: Build Gatsby site
         run: npm run build
+
+      - name: Copy public directory to temporary directory
+        run: cp -r public public_temp
+
+      - name: Checkout deploy branch
+        run: git checkout -b deploy
         
-      - name: Copy public directory to deploy branch
+      - name: Delete all files except .git directory
+        run: |
+          shopt -s extglob
+          rm -rf !(public_temp|.git)
+      
+      - name: Copy public directory from temporary directory
+        run: cp -r public_temp/. .
+      
+      - name: Commit changes
         run: |
           git config --global user.email "cjw7155@naver.com"
           git config --global user.name "OneCrazyman"
-          git checkout -b deploy
-          rm -rf * 
-          cp -r ../public/. .
           git add .
           git commit -m "Deploy Gatsby site"
-          git push -f origin deploy
+      
+      - name: Push changes to deploy branch
+        uses: ad-m/github-push-action@master
+        with:
+          branch: deploy
+          github_token: ${{ secrets.GITHUB_TOKEN }}
