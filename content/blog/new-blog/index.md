@@ -1,5 +1,6 @@
 ---
 title: 새 TIL 블로그를 시작했습니다.
+date: 24-02-28
 ---
 # Hello world
 
@@ -16,15 +17,15 @@ title: 새 TIL 블로그를 시작했습니다.
 `main` 브랜치와 `deploy`용 브랜치를 따로 운영해서 배포하는 방식으로 진행했습니다! gatsby는 빌드할때 public이란 웹사이트와 관련된 파일이 디렉토리에 html로 생성되기 때문에 public 폴더를 `deploy` 브랜치에 배포하는 방식으로 진행하였습니다.
 
 이때, 깃허브 페이지에 배포하기위해 gh-pages 패키지를 이용해야합니다. (저는 npm을 이용해 패키지를 설치했습니다.)
-
->npm i gh-pages
-
-하지만 여기서 gatsby 버전과 관련해서 오류가 뿜뿜 발생하더라고요?
+```
+npm i gh-pages
+```
+하지만 여기서 gatsby 버전과 관련해서 오류가 뿜뿜 발생
 
 gatsby 테마를 이용해 설치했기 때문에 원인을 못찾다가 결국엔 젤 처음 테마를 설치하기 위해 필요한 `gatsby-cli`을 다운그레이드 해서 설치하고 진행해서 해결하였습니다.
-
->npm install -g gatsby-cli@4.25.0
-
+```
+npm install -g gatsby-cli@4.25.0
+```
 또한, TIL 레포에서 직접 배포하는 형태이기때문에 `prefix-path`를 이용해 레포 경로를 지정해주었습니다. 아래는 gh-pages를 이용해 deploy할때 prefix-path를 지정해주는 코드입니다. 아 그리고 config에서 prefix-path 경로를 지정해주면 됩니다.
 
 `pacakge.json`
@@ -53,5 +54,3 @@ module.exports = {
 - 카테고리 (갯수 표시)
 - 코드블록에 파일명 표시
 - 구글 검색 등록
-
-생각보다 별로 없네요? TIL 블로그라 최소한 기능만 있으면 되지 않나~ 
