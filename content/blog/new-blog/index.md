@@ -1,6 +1,6 @@
 ---
 title: 새 TIL 블로그를 시작했습니다.
-date: 24-02-28
+date: "2024-02-28"
 ---
 # Hello world
 
