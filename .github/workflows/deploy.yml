@@ -19,7 +19,7 @@ jobs:
           node-version: '20'
           
       - name: Setting
-        run:
+        run: |
           git config --global user.email "cjw7155@naver.com"
           git config --global user.name "OneCrazyman"
           
