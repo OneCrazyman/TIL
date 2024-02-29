@@ -28,7 +28,7 @@ jobs:
         run: |
           git config --global user.email "cjw7155@naver.com"
           git config --global user.name "OneCrazyman"
-          git checkout deploy
+          git checkout -b deploy
           rm -rf * 
           cp -r ../public/. .
           git add .
