@@ -46,4 +46,7 @@ jobs:
           git commit -m "Deploy Gatsby site"
       
       - name: Push changes to deploy branch
-        run: git push -f origin deploy
+        uses: ad-m/github-push-action@master
+        with:
+          branch: deploy
+          github_token: ${{ secrets.GITHUB_TOKEN }}
