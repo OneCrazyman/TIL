@@ -1,4 +1,144 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>https://gatsbystarterblogsource.gatsbyjs.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 28 Feb 2024 09:53:08 GMT</lastBuildDate><item><title><![CDATA[새 TIL 블로그를 시작했습니다.]]></title><description><![CDATA[Hello world…]]></description><link>https://gatsbystarterblogsource.gatsbyjs.io/new-blog/</link><guid isPermaLink="false">https://gatsbystarterblogsource.gatsbyjs.io/new-blog/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;h1&gt;Hello world&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Gatsby Starter Blog RSS Feed]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>https://gatsbystarterblogsource.gatsbyjs.io</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 29 Feb 2024 16:30:41 GMT</lastBuildDate><item><title><![CDATA[CSV파일을 MYSQL 데이터베이스에 로드하기]]></title><description><![CDATA[데이터베이스 스키마에 한글이 포함된 경우 데이터베이스와 CSV파일모두 UTF-8로 인코딩해야한다. 테이블 생성 .XLSX to .CSV 액셀 -> 내보내기 -> CSV로 저장  혹은 다른 이름으로 저장에서 해당옵션을 사용  CSV로드 SQL…]]></description><link>https://gatsbystarterblogsource.gatsbyjs.io/mysql/1/</link><guid isPermaLink="false">https://gatsbystarterblogsource.gatsbyjs.io/mysql/1/</guid><content:encoded>&lt;p&gt;데이터베이스 스키마에 한글이 포함된 경우 데이터베이스와 CSV파일모두 UTF-8로 인코딩해야한다.&lt;/p&gt;
+&lt;h3&gt;테이블 생성&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sql&quot;&gt;&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TABLE&lt;/span&gt; Item &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    id &lt;span class=&quot;token keyword&quot;&gt;BIGINT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;PRIMARY&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;KEY&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    only &lt;span class=&quot;token keyword&quot;&gt;BOOLEAN&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;SET&lt;/span&gt; utf8mb4 &lt;span class=&quot;token comment&quot;&gt;-- UTF8 옵션 / mysql 8.x에선 utf8mb4로 할것을 권장&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;COLLATE&lt;/span&gt; utf8mb4_unicode_ci&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;.XLSX to .CSV&lt;/h3&gt;
+&lt;p&gt;액셀 -&gt; 내보내기 -&gt; CSV로 저장  혹은 &lt;strong&gt;다른 이름으로 저장&lt;/strong&gt;에서 해당옵션을 사용&lt;br&gt;
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 244px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/TIL/static/cea70677e8628891eb60c2930f1d5f91/0cba8/image.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 29.746835443037973%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAA/ElEQVR42p2PW0+DQBSE+f+/p1Eaa61AuBTQAMaGRCFAQG6VwFKeKONZxGjqg4mbfJmZ3c2eHYExhmEYMJxO6Pt+pm3bfyOkaYpn18HB9/EaBEiSBIz16GhQ13UzbPFc/0J4y3MkYYiXIESWZcgp8zVN0zfn86ITzovnOo7jL4QoimDbNjzHheM4ME0TlmXB0HXIsoSbzQaapkGRZTqz4HoeXGrkeU/wqdUlQkA1VVWBpmrQdQP7vQFFkXG1WkEUr3G7vYMk3WMtrqHSwyYN2+22sB8eEccx+Id+ItR1TTULVFWFsvzSCgX54/EdTdNQLj/3iaIo5szvcn/JB8OmuRe1HHt7AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;alt text&quot;
+        title=&quot;&quot;
+        src=&quot;/TIL/static/cea70677e8628891eb60c2930f1d5f91/0cba8/image.png&quot;
+        srcset=&quot;/TIL/static/cea70677e8628891eb60c2930f1d5f91/c26ae/image.png 158w,
+/TIL/static/cea70677e8628891eb60c2930f1d5f91/0cba8/image.png 244w&quot;
+        sizes=&quot;(max-width: 244px) 100vw, 244px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;CSV로드 SQL&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;LOAD DATA INFILE &apos;/path/to/your/csv/file.csv&apos;
+INTO TABLE your_table_name
+FIELDS TERMINATED BY &apos;,&apos;
+ENCLOSED BY &apos;&quot;&apos;
+LINES TERMINATED BY &apos;\n&apos;
+IGNORE 1 LINES; -- 첫 번째 줄은 헤더이므로 무시합니다.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;❗문제 발생&lt;/h3&gt;
+&lt;p&gt;MYSQL 8.x버전 부터는 외부 import/export를 제한을 두어 안된다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;User Error Code: 1290. The MySQL server is running with the --secure-file-priv option so it cannot execute this statement&lt;/code&gt;
+해당 에러 코드를 살펴보면, --secure-file-priv 옵션에 따라 실행될 수 없다고 한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;show variables like &apos;secure_file_priv&apos;;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 611px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/TIL/static/d72d51fa4b2536eb41fde287d0bcb0e9/36bb5/image-1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 11.39240506329114%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAiklEQVR42i3Juw6CQABEUf7dSm2tNEZj7PwFC7DSoJbSmQgL+wBWAVnL60osTmYmEyilSdMMIVJKLciyAm1KmqbzWuzzhVSGR64R0qC053dVW5q2w7kPfe8Gvx5YfxR5zi1JkFKxuyhmUcHmbFnH9WAVW+bHiuWpZnu1LHyOQ8PkbxoZRnvN4f7mC3bQjsFZrZ5BAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;alt text&quot;
+        title=&quot;&quot;
+        src=&quot;/TIL/static/d72d51fa4b2536eb41fde287d0bcb0e9/36bb5/image-1.png&quot;
+        srcset=&quot;/TIL/static/d72d51fa4b2536eb41fde287d0bcb0e9/c26ae/image-1.png 158w,
+/TIL/static/d72d51fa4b2536eb41fde287d0bcb0e9/6bdcf/image-1.png 315w,
+/TIL/static/d72d51fa4b2536eb41fde287d0bcb0e9/36bb5/image-1.png 611w&quot;
+        sizes=&quot;(max-width: 611px) 100vw, 611px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;value 값에 따른 옵션&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&quot;&quot; : 모든 외부경로에 대한 접근 가능&lt;/li&gt;
+&lt;li&gt;NULL : &quot;&quot; 접근 불가능&lt;/li&gt;
+&lt;li&gt;{DIRECTORY} : 해당 디렉토리 경로에서 접근가능&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;옵션 변경을 할수도, 현재 value값에 정해진 경로에서 진행할 수도 있겠다.&lt;/p&gt;
+&lt;h3&gt;해결&lt;/h3&gt;
+&lt;p&gt;편하게 mysql측에서 제공한 경로에서 진행을 하였다.
+해당 경로에 ITEM.CSV를 업로드하고 실행을 하였더니 잘 실행이 되는 모습을 볼 수 있었다.&lt;/p&gt;
+&lt;h2&gt;추가적인 생각할 거리들&lt;/h2&gt;
+&lt;p&gt;위까지 하였지만 다시 삽입이 실패하는 경우가 있다.&lt;br&gt;
+MYSQL에 임포트시킬때 무조건 CSV파일을 로드할 수 있는것은 아니다. 몇가지 경우에 만족할때 가능한데,
+생성한 테이블 구조와 CSV파일의 구조가 일치하면 위 로드 SQL문을 통해 정상적으로 임포트할 수 있겠지만 구조가 다르거나 변수 타입이 다르다면? 얘기가 달라진다.&lt;/p&gt;
+&lt;p&gt;나는 csv에서 boolean 값으로 true/false를 이용하는 반면, mysql은 tinyint를 boolean과 같은 용도를 사용하기에 매핑해주어야 할 필요가 있었다. 매핑 방법으로는 로드 SQL문 밑에 아래코드를 예시로 추가해주면 된다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;(@ID, @only, @cash)
+SET
+    ID = @ID,
+    only = IF(@only = &apos;TRUE&apos;, 1, 0),
+    cash = IF(@cash = &apos;TRUE&apos;, 1, 0),&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;조건문을 달아서 매핑을 해주는것이다. true이면 1을 false일시 0을..&lt;/p&gt;
+&lt;p&gt;또한 CSV에 빈칸이 알아서 NULL로 매핑해주지 않아 이 또한 매핑을 해주었다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;    reqSTR = IF(@reqSTR = &apos;&apos;, NULL, @reqSTR),
+    reqDEX = IF(@reqDEX = &apos;&apos;, NULL, @reqDEX),
+    reqINT = IF(@reqINT = &apos;&apos;, NULL, @reqINT),
+    reqLUK = IF(@reqLUK = &apos;&apos;, NULL, @reqLUK),
+    reqJob = IF(@reqJob = &apos;&apos;, NULL, @reqJob),&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;잘들어간모습&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 630px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/TIL/static/2325e51fdd57fa79ddc04ae3b2e47110/59822/image-2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 33.54430379746836%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAA7DAAAOwwHHb6hkAAABfElEQVR42i2RWbKiQBRE3f8Cegu9i/f1PjscQUSZoZhkVEDFZ5++VPRHxiWg6pCZd+V7HnmekqicNE1p6obrtUSlGWURoeKAoiiJ0xw3iFFJQllWoitN09C2HX1/o6oqsixj5bghdXun60fafhCN3IYH4+PN9PpwOntUdc/0/KG7Tfhhwtnx8fxYT9cLSdJCP8exYnW0HAGOcvhBf39yH2dGubxomGYM80xetsw/8JyRiyF/1gc2O0vP9cbE9RMOck4JeGWffZpu0sC2nwTypqw6vCCRmCUHO2JthWTNxOsNjhex21sasDvINGxxnXE8uaSZAM3jhaoZNHDR4rDuBkqJ2Q0zv799fn2FfHsjH3Fpi8P11mC7P+m52ZrykxhDOMsetMOlm6W39j9wfH6Y5r+6w+X7Xlz0w0s7vLiRxD3qd5udqd16gcKQ6tIl8tGS7JlsqKhpxZkGy2Kq9ibwp5QeSUeRLGnWCiKFdXI4X3w9bVlaogouToBSGf8ANSkEzskbbx4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;alt text&quot;
+        title=&quot;&quot;
+        src=&quot;/TIL/static/2325e51fdd57fa79ddc04ae3b2e47110/f058b/image-2.png&quot;
+        srcset=&quot;/TIL/static/2325e51fdd57fa79ddc04ae3b2e47110/c26ae/image-2.png 158w,
+/TIL/static/2325e51fdd57fa79ddc04ae3b2e47110/6bdcf/image-2.png 315w,
+/TIL/static/2325e51fdd57fa79ddc04ae3b2e47110/f058b/image-2.png 630w,
+/TIL/static/2325e51fdd57fa79ddc04ae3b2e47110/59822/image-2.png 916w&quot;
+        sizes=&quot;(max-width: 630px) 100vw, 630px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+        decoding=&quot;async&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[새 TIL 블로그를 시작했습니다.]]></title><description><![CDATA[Hello world…]]></description><link>https://gatsbystarterblogsource.gatsbyjs.io/new-blog/</link><guid isPermaLink="false">https://gatsbystarterblogsource.gatsbyjs.io/new-blog/</guid><pubDate>Invalid Date</pubDate><content:encoded>&lt;h1&gt;Hello world&lt;/h1&gt;
 &lt;p&gt;기존 티스토리 블로그는 아무래도 더 공개적인 장소다 보니 정제된 글을 써야된다는 부담이 있었습니다.&lt;br&gt;
 어느날에는 이것저것 공부할때도 많고 하나의 트러블슈팅에 막혀 진도를 못빼는 경우도 있어서 이런 모든걸 기록하기에는
 조금더 개인적인 블로그가 있으면 좋다 생각했고, TIL로 오늘 배운 내용을 적당히 끄적이고 남겨서 나중에 스스로 되돌아보기도 좋지 않을까 하여 TIL 블로그를 시작했습니다😊&lt;/p&gt;
@@ -8,14 +148,10 @@
 &lt;p&gt;물론 js,graphql,react 개념들을 접해본적이 없기에 이것또한 막막했습니다.. 테마 설치하고 배포하면 끝인 튜토리얼과 다르게 로컬에서는 잘 빌드되고 배포되는 나머지, 정작 깃헙을 통해서 올리면 배포가 되지 않더라고요 여럿 방법을 찾아본 결과&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;main&lt;/code&gt; 브랜치와 &lt;code class=&quot;language-text&quot;&gt;deploy&lt;/code&gt;용 브랜치를 따로 운영해서 배포하는 방식으로 진행했습니다! gatsby는 빌드할때 public이란 웹사이트와 관련된 파일이 디렉토리에 html로 생성되기 때문에 public 폴더를 &lt;code class=&quot;language-text&quot;&gt;deploy&lt;/code&gt; 브랜치에 배포하는 방식으로 진행하였습니다.&lt;/p&gt;
 &lt;p&gt;이때, 깃허브 페이지에 배포하기위해 gh-pages 패키지를 이용해야합니다. (저는 npm을 이용해 패키지를 설치했습니다.)&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;npm i gh-pages&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;npm i gh-pages&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;하지만 여기서 gatsby 버전과 관련해서 오류가 뿜뿜 발생&lt;/p&gt;
 &lt;p&gt;gatsby 테마를 이용해 설치했기 때문에 원인을 못찾다가 결국엔 젤 처음 테마를 설치하기 위해 필요한 &lt;code class=&quot;language-text&quot;&gt;gatsby-cli&lt;/code&gt;을 다운그레이드 해서 설치하고 진행해서 해결하였습니다.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;npm install -g &lt;a href=&quot;mailto:gatsby-cli@4.25.0&quot;&gt;gatsby-cli@4.25.0&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;npm install -g gatsby-cli@4.25.0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;또한, TIL 레포에서 직접 배포하는 형태이기때문에 &lt;code class=&quot;language-text&quot;&gt;prefix-path&lt;/code&gt;를 이용해 레포 경로를 지정해주었습니다. 아래는 gh-pages를 이용해 deploy할때 prefix-path를 지정해주는 코드입니다. 아 그리고 config에서 prefix-path 경로를 지정해주면 됩니다.&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;pacakge.json&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token string-property property&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
