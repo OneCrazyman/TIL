@@ -1,36 +1,27 @@
-name: Build and Deploy
-
 on:
   push:
     branches:
-      - main
-
+      - deploy
+      
+name: build gatsby
 jobs:
-  build:
+  build_gatsby:
+    name: build
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          
-      - name: Setting
-        run: |
-          git config --global user.email "cjw7155@naver.com"
-          git config --global user.name "OneCrazyman"
-          
-      - name: Install dependencies
+      - uses: actions/checkout@v4
+
+      - name: npm install
         run: npm install
-        
-      - name: Build
+
+      - name: npm run build
+        env:
+          GH_API_KEY: ${{ secrets.GITHUB_API_KEY }}
         run: npm run build
 
       - name: deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+        uses: maxheld83/ghpages@v0.2.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GITHUB_API_KEY }}
+          BUILD_DIR: 'public/'
