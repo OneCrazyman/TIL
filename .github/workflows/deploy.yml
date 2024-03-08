@@ -26,5 +26,11 @@ jobs:
       - name: Install dependencies
         run: npm install
         
-      - name: Build and Deploy Gatsby site
-        run: npm run deploy
+      - name: Build
+        run: npm run build
+
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public # 이 폴더에 있는 파일을 배포
