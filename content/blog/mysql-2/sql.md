@@ -1,5 +1,5 @@
 ---
-title: "Mysql Error Code: 1175, 1451"
+title: "Mysql Error Code: 1175, 1451, 1452"
 date: "2024-03-11"
 ---
 ## 코드 1175
@@ -40,3 +40,12 @@ delete from authority;
 ```
 
 외래키를 가지고 있는 테이블 행을 먼저 제거하여 더 이상 에러코드가 뜨지 않게 해줄 수 있다.
+
+## 코드 1452
+자바 엔티티에서 id 옵션으로 GenerationType.IDENTITY 전략을 차용하였다. mysql에서는 해당 전략에 따라 auto_increment를 사용해 id값을 생성하게 되었고, 위에서 delete table 사용하여 새로운 데이터를 insert 했을때, 기존 id값과 달라 오류가 발생하였다.
+
+간단하게 `auto_increment` 값을 1로 초기화 시켜주어 해결하였다.
+
+```
+ALTER TABLE your_table_name AUTO_INCREMENT = 1;
+```
