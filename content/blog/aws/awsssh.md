@@ -12,7 +12,7 @@ aws프리티어를 적극 이용하였다.
 
 ![alt text](image.png)
 
-이후 ssh로 원격 제어하기 위해 키를 생성하였다.
+이후 ssh로 원격 제어하기 위해 키를 생성하였다.  
 ![alt text](image-1.png)
 
 인스턴스를 생성 한 이후 MobaXterm 클라이언트를 이용해 ssh접근을 시도하였다.
