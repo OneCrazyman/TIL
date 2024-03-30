@@ -2,6 +2,7 @@
 title: 백준2750 - 선택정렬과 파이썬의 sort함수
 date: "2024-03-20"
 ---
+
 # [Bronze II] 수 정렬하기 - 2750 
 
 [문제 링크](https://www.acmicpc.net/problem/2750) 
