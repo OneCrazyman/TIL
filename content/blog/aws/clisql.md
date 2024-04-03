@@ -24,3 +24,17 @@ CREATE USER '사용자이름'@'호스트' IDENTIFIED BY '비밀번호'; //데이
 GRANT ALL PRIVILEGES ON *.* TO '사용자이름'@'호스트';
 FLUSH PRIVILEGES; //변경사항을 적용
 ```
+
+### 유저로 접속
+```
+ubuntu@mysql:/var/lib$ mysql -u gaseyola -p
+Enter password:
+
+```
+이렇게 접속한 후 데이터베이스이나 테이블을 생성할 수 있게 되었다.
+
+```
+CREATE DATABASE 데이터베이스이름;
+USE 데이터베이스이름;
+SHOW TABLES;
+```
