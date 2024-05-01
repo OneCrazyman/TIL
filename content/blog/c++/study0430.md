@@ -69,4 +69,4 @@ endl
 
 __출처__  
 명품 C++ Programming  
-© Chang Seung Kim – All rights reserved 
+자료 출처: © Chang Seung Kim
