@@ -66,3 +66,7 @@ using namespace std
 
 endl
 - 화면의 줄을 바꾸는 제어문자 \n
+
+__출처__  
+명품 C++ Programming  
+© Chang Seung Kim – All rights reserved 
