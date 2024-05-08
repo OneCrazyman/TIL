@@ -14,7 +14,7 @@ https://covenant.tistory.com/222
 ### 운영 체제
 - SNUON 홍성수(서울대)
     - 멀티 스레드에 대해서 꼭 들어보자
-    
+
 `관련`  
 https://etl.snu.ac.kr/courses/65cb10b2671c0b287c09f127
 https://covenant.tistory.com/100
@@ -36,7 +36,12 @@ https://covenant.tistory.com/100
 https://www.youtube.com/playlist?list=PLXvgR_grOs1DFOWF65X0Zqnd_264x41u-
 
 - 윤성우의 열혈 C++ (오렌지 미디어)
-https://cafe.naver.com/cstudyjava
+https://cafe.naver.com/cstudyjava/136280
 
 `참고`  
 https://covenant.tistory.com/104
+
+### 번외
+- 닷넷 프레임워크란 https://www.youtube.com/watch?v=0Cja22CYJOE
+- 윤성우의 열혈 TCP/IP 소켓 프로그래밍 https://cafe.naver.com/cstudyjava/136281
+- C#, .NET 강좌 https://cafe.naver.com/cstudyjava/704
