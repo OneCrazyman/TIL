@@ -45,3 +45,4 @@ https://covenant.tistory.com/104
 - 닷넷 프레임워크란 https://www.youtube.com/watch?v=0Cja22CYJOE
 - 윤성우의 열혈 TCP/IP 소켓 프로그래밍 https://cafe.naver.com/cstudyjava/136281
 - C#, .NET 강좌 https://cafe.naver.com/cstudyjava/704
+- 게임 서버 프로그래밍 교과서(배현직 저)
