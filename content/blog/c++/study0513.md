@@ -1,5 +1,5 @@
 ---
-title: "[c++] 동적 메모리, 참조자"
+title: "[c++] 동적 메모리, 참조자, 문자열"
 date: '2024-05-13'  
 ---
 ## 동적 메모리
@@ -114,6 +114,107 @@ ref의 값: 20
 - 참조자는 null이 될 수 없기에,  null 가능성이 있을 경우 포인터를 사용
 - 참조자는 참조 대상을 변경할 수 없기에, 참조 대상이 수시로 변할거 같다면, 포인터를 사용
 
-__출처__  
+### 참조자의 용도
+- 함수 호출시 매개 변수와 반환값으로 사용
+
+- 매개변수
+```cpp
+#include <iostream>
+using namespace std;
+
+void dec_by_r(int& r) { // r은 time의 참조자이다.
+	r--; // time이 감소된다. 
+	return;
+}
+void dec_by_p(int* p) {
+	--(*p); // time이 감소된다. 
+	return;
+}
+int main()
+{
+	int time = 10;
+	dec_by_r(time); // time을 전달한다. 
+	dec_by_p(&time); // time의 주소를 전달한다.
+	return 0;
+}
+```
+- 함수 반환
+	- 지역 변수의 참조자를 반환하면 안된다.
+		```cpp
+		int& sub() {
+			int n = 0;
+			return n; // 오류! → n은 지역 변수
+		}
+		```
+	- 함수가 반환되도 존재하는 변수를 반환하는 예
+		```cpp
+		int& findMax(int arr[], int size) {
+			int maxIndex = 0;
+			for (int i = 1; i < size; ++i) {
+				if (arr[i] > arr[maxIndex]) {
+					maxIndex = i;
+				}
+			}
+			return arr[maxIndex];
+		}
+		```
+
+- const 참조자  
+	- 상수를 매개 변수로 받는 경우에 필요
+		- 참조자를 통한 변경을 방지하기 위해. (읽기전용)
+		```cpp
+		void print(const int& r)
+		{
+			cout << "현재의 값= " << r << endl;
+			return;
+		}
+		int main()
+		{
+			print(100);
+			return 0;
+		}
+		```
+### 함수 호출시 인수 전달 방식
+- 값에 의한 호출 (call by value)
+	- 함수로 복사본이 전달. 원본에 영향x
+
+- 참조에 의한 호출 (call by reference)
+	- 함수로 원본이 전달.
+
+### 참조에 의한 호출
+- 포인터
+	```cpp
+	int main(){
+		int a = 100, b = 200;
+		swap(&a,&b);
+		...
+	}
+
+	void swap(int *px, int *py) ...
+	```
+
+- 참조자
+	```cpp
+	int main(){
+		int a = 100, b = 200;
+		swap(a,b);
+		...
+	}
+
+	void swap(int &px, int &py) ...
+	```		
+
+### 문자배열
+- 문자 배열 원소들을 중괄호 안에 넣어주는 방법
+	- char str[6] = { 'H', 'e', 'l', 'l', 'o', '\0' };
+- 문자열 상수를 사용하여 초기화하는 방법
+	- char str[6] = "Hello";·
+- 배열을 크기를 지정하지 않으면
+	- 컴파일러가 자동으로 배열의 크기를 초기화 값에 맞추어 설정
+	- char str[] = "C Bible"; // 배열의 크기는 7이 된다.
+
+![alt text](image-7.png)
+
+__참고 및 출처__  
 명품 C++ Programming  
 자료 출처: © Chang Seung Kim

@@ -169,6 +169,6 @@ pd = vp;
 ```
 `error>> void* 에서 double* 로 변환할 수 없습니다.`
 
-__출처__  
+__참고 및 출처__ 
 명품 C++ Programming  
 자료 출처: © Chang Seung Kim
