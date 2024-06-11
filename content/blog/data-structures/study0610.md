@@ -1,5 +1,5 @@
 ---
-title: "heap과 stack메모리"
+title: "[DS] heap과 stack메모리"
 date: '2024-06-10'
 ---
 ## 메모리
