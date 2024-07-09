@@ -1,5 +1,5 @@
 ---
-title: "[DS] 재귀 함수"
+title: "[Data Structure] 재귀 함수"
 date: '2024-06-11'
 ---
 ```cpp
