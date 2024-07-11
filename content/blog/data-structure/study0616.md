@@ -1,5 +1,5 @@
 ---
-title: "[DS] 정적 변수와 재귀 함수 Static and Global Variable in Recursion"
+title: "[Data Structure] 정적 변수와 재귀 함수 Static and Global Variable in Recursion"
 date: '2024-06-15'
 ---
 재귀함수에서 일반 변수를 사용하면 매번 호출마다 메모리에 새로운 복사본이 생성된다. 그리고 그것이 일반 로컬 변수의 기능이기도 하다. 

@@ -1,5 +1,5 @@
 ---
-title: "[DS] nCr using Recursion"
+title: "[Data Structure] nCr using Recursion"
 date: '2024-07-01'
 ---
 ## Combination Formula 조합 공식
