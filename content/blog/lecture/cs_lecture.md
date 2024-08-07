@@ -11,6 +11,9 @@ date: '2024-05-08'
 http://www.kocw.net/home/search/kemView.do?kemId=1169634  
 https://covenant.tistory.com/222
 
+### 컴퓨터 구조
+- 영남대 최규상 교수님
+- 교재 David A. Patterson,John L. Hennessy
 ### 운영 체제
 - SNUON 홍성수(서울대)
     - 멀티 스레드에 대해서 꼭 들어보자
