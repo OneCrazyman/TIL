@@ -24,7 +24,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           id
           fields {
             slug
+            category
           }
+        }
+        group(field: fields___category){
+          fieldValue
+          totalCount
         }
       }
     }
@@ -39,6 +44,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   const posts = result.data.allMarkdownRemark.nodes
+  const categories = result.data.allMarkdownRemark.group;
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
@@ -60,6 +66,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+
+  categories.forEach(category => {
+    createPage({
+      path: `/category/${category.fieldValue}/`,
+      component: path.resolve('./src/templates/category.js'),
+      context: {
+        category: category.fieldValue,
+      }
+    })
+  })
 }
 
 /**
@@ -75,7 +91,15 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       name: `slug`,
       node,
       value,
-    })
+    });
+
+    //category 명 추출 작업
+    const category = path.basename(path.dirname(node.fileAbsolutePath));
+    createNodeField({
+      name: 'category',
+      node,
+      value: category,
+    });
   }
 }
 
