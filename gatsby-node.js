@@ -144,6 +144,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
     type Fields {
       slug: String
+      category: String
     }
   `)
 }
