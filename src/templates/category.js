@@ -58,7 +58,7 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      filter: { frontmatter: { category: { eq: $category } } }
+      filter: { fields: { category: { eq: $category } } }
       sort: { frontmatter: { date: DESC } }
     ) {
       nodes {
