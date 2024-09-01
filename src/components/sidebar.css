@@ -1,12 +1,14 @@
 /* src/components/sidebar.css */
 .sidebar {
-    position: -webkit-sticky; /* For Safari */
-    position: sticky;
-    top: 0; /* Stick to the top of the viewport */
-    width: 200px; /* Set width for sidebar */
-    padding: 1rem;
-    background: #f5f5f5; /* Background color for sidebar */
-    border-right: 1px solid #ddd; /* Border between sidebar and content */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--maxWidth-md); /* 사이드바 너비 */
+    height: 100vh; /* 전체 화면 높이 */
+    background-color: #f4f4f4; /* 사이드바 배경색 */
+    padding: var(--spacing-4);
+    border-right: 1px solid #ddd; /* 사이드바 테두리 */
+    overflow-y: auto; /* 스크롤이 필요할 경우 */
   }
   
   .sidebar h2 {
@@ -19,15 +21,10 @@
   }
   
   .sidebar li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.1rem;
   }
   
   .sidebar a {
     text-decoration: none;
     color: #333;
   }
-  
-  .sidebar a:hover {
-    text-decoration: underline;
-  }
-  

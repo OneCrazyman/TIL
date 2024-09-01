@@ -1,9 +1,17 @@
 /* src/components/layout.css */
 .content-wrapper {
-    display: flex;
+    margin-left: var(--maxWidth-md); /* 사이드바 너비 만큼 여백 추가 */
+    padding: var(--spacing-4);
+    max-width: var(--maxWidth-wrapper); /* 콘텐츠 최대 너비 */
+    margin: 0 auto; /* 콘텐츠 중앙 정렬 */
   }
   
-  main {
+.global-wrapper {
+    display: flex;
+    flex-direction: row; /* 사이드바와 콘텐츠를 가로 방향으로 배치 */
+}
+
+main {
     flex: 1;
     padding: 1rem;
-  }
+}
