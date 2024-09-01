@@ -1,0 +1,9 @@
+/* src/components/layout.css */
+.content-wrapper {
+    display: flex;
+  }
+  
+  main {
+    flex: 1;
+    padding: 1rem;
+  }
