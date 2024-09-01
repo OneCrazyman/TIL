@@ -27,7 +27,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             category
           }
         }
-        group(field: fields___category){
+        group(field: {fields: {category: SELECT}}){
           fieldValue
           totalCount
         }

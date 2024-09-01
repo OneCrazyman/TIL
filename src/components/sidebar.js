@@ -5,7 +5,7 @@ const Sidebar = () => {
   const data = useStaticQuery(graphql`
     query {
       allMarkdownRemark {
-        group(field: fields___category) {
+        group(field: {fields: {category: SELECT}}) {
           fieldValue
           totalCount
         }
