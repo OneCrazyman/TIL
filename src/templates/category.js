@@ -1,28 +1,39 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
 
+import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-const CategoryTemplate = ({
-  data: { allMarkdownRemark, site },
-  pageContext,
-  location,
-}) => {
-  const siteTitle = site.siteMetadata?.title || `Title`
-  const posts = allMarkdownRemark.nodes
+const CategoryTemplate = ({ data, location, pageContext }) => {
+  const siteTitle = data.site.siteMetadata?.title || `Title`
+  const posts = data.allMarkdownRemark.nodes
   const { category } = pageContext
+
+  if (posts.length === 0) {
+    return (
+      <Layout location={location} title={siteTitle}>
+        <Bio />
+        <p>No blog posts found for the category "{category}".</p>
+      </Layout>
+    )
+  }
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo title={`${category} 카테고리`} />
-      <h1>{category} 카테고리</h1>
-      <ul>
+      <Bio />
+      <h2>Posts in category: "{category}"</h2>
+      <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
+
           return (
             <li key={post.fields.slug}>
-              <article itemScope itemType="http://schema.org/Article">
+              <article
+                className="post-list-item"
+                itemScope
+                itemType="http://schema.org/Article"
+              >
                 <header>
                   <h2>
                     <Link to={post.fields.slug} itemProp="url">
@@ -43,15 +54,19 @@ const CategoryTemplate = ({
             </li>
           )
         })}
-      </ul>
+      </ol>
     </Layout>
   )
 }
 
 export default CategoryTemplate
 
+export const Head = ({ pageContext }) => {
+  return <Seo title={`Posts in category: ${pageContext.category}`} />
+}
+
 export const pageQuery = graphql`
-  query CategoryPage($category: String!) {
+  query($category: String!) {
     site {
       siteMetadata {
         title
@@ -62,15 +77,15 @@ export const pageQuery = graphql`
       sort: { frontmatter: { date: DESC } }
     ) {
       nodes {
+        excerpt
         fields {
           slug
         }
         frontmatter {
-          title
           date(formatString: "MMMM DD, YYYY")
+          title
           description
         }
-        excerpt
       }
     }
   }
