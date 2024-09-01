@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
+import "./sidebar.css" // Import the CSS for sidebar
 
 const Sidebar = () => {
   const data = useStaticQuery(graphql`

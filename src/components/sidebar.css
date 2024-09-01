@@ -1,0 +1,33 @@
+/* src/components/sidebar.css */
+.sidebar {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0; /* Stick to the top of the viewport */
+    width: 200px; /* Set width for sidebar */
+    padding: 1rem;
+    background: #f5f5f5; /* Background color for sidebar */
+    border-right: 1px solid #ddd; /* Border between sidebar and content */
+  }
+  
+  .sidebar h2 {
+    margin-top: 0;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .sidebar a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .sidebar a:hover {
+    text-decoration: underline;
+  }
+  
