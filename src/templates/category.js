@@ -11,7 +11,7 @@ const CategoryTemplate = ({
 }) => {
   const siteTitle = site.siteMetadata?.title || `Title`
   const posts = allMarkdownRemark.nodes
-  const totalCount = data.allMarkdownRemark.totalCount
+  const totalCount = allMarkdownRemark.totalCount
   const { category } = pageContext
 
   if (posts.length === 0) {
