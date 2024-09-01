@@ -11,6 +11,7 @@ const CategoryTemplate = ({
 }) => {
   const siteTitle = site.siteMetadata?.title || `Title`
   const posts = allMarkdownRemark.nodes
+  const totalCount = data.allMarkdownRemark.totalCount
   const { category } = pageContext
 
   if (posts.length === 0) {
@@ -23,8 +24,8 @@ const CategoryTemplate = ({
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo title={`${category} 카테고리`} />
-      <h1>{category} 카테고리</h1>
+      {/* <Seo title={`${category} 카테고리`} /> */}
+      <h2>Posts in category: "{category}"</h2>
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
@@ -73,6 +74,7 @@ export const pageQuery = graphql`
       filter: { fields: { category: { eq: $category } } }
       sort: { frontmatter: { date: DESC } }
     ) {
+      totalCount
       nodes {
         fields {
           slug
