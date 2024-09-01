@@ -1,7 +1,9 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import { useLocation } from "@reach/router"; // useLocation 훅을 추가
 
 const Layout = ({ location, title, children }) => {
+  const location = useLocation(); // useLocation 훅으로 location 객체를 얻는다.
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
   let header
