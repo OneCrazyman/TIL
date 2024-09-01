@@ -1,19 +1,21 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-const CategoryTemplate = ({ data, location, pageContext }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMarkdownRemark.nodes
+const CategoryTemplate = ({
+  data: { allMarkdownRemark, site },
+  pageContext,
+  location,
+}) => {
+  const siteTitle = site.siteMetadata?.title || `Title`
+  const posts = allMarkdownRemark.nodes
   const { category } = pageContext
 
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
-        <Bio />
         <p>No blog posts found for the category "{category}".</p>
       </Layout>
     )
@@ -21,12 +23,11 @@ const CategoryTemplate = ({ data, location, pageContext }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Bio />
-      <h2>Posts in category: "{category}"</h2>
+      <Seo title={`${category} 카테고리`} />
+      <h1>{category} 카테고리</h1>
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
-
           return (
             <li key={post.fields.slug}>
               <article
@@ -61,12 +62,8 @@ const CategoryTemplate = ({ data, location, pageContext }) => {
 
 export default CategoryTemplate
 
-export const Head = ({ pageContext }) => {
-  return <Seo title={`Posts in category: ${pageContext.category}`} />
-}
-
 export const pageQuery = graphql`
-  query($category: String!) {
+  query CategoryPage($category: String!) {
     site {
       siteMetadata {
         title
@@ -77,15 +74,15 @@ export const pageQuery = graphql`
       sort: { frontmatter: { date: DESC } }
     ) {
       nodes {
-        excerpt
         fields {
           slug
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
           title
+          date(formatString: "MMMM DD, YYYY")
           description
         }
+        excerpt
       }
     }
   }
