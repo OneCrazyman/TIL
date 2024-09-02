@@ -15,7 +15,7 @@ const Sidebar = () => {
   `);
 
   return (
-    <aside>
+    <div className="sidebar-wrapper">
       <h2>Categories</h2>
       <ul>
         {data.allMarkdownRemark.group.map(category => (
@@ -26,7 +26,7 @@ const Sidebar = () => {
           </li>
         ))}
       </ul>
-    </aside>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@ import * as React from "react"
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
+// import Bio from "../components/bio"
 
 const CategoryTemplate = ({
   data: { allMarkdownRemark, site },
@@ -24,8 +24,8 @@ const CategoryTemplate = ({
 
   return (
     <Layout location={location} title={siteTitle}>
-      {/* <Seo title={`${category} 카테고리`} /> */}
-      <h2>Posts in category: "{category}"</h2>
+      {/* <Bio /> */}
+      <h2>Posts in category: "{category} ({totalCount})"</h2>
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug

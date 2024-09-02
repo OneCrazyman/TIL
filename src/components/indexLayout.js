@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import { useLocation } from "@reach/router"; // useLocation 훅을 추가
 import Sidebar from "./sidebar";
 import "./layout.css" // Import the CSS for sidebar
-// import Bio from './bio'
+import Bio from './bio'
 
 const Layout = ({ title, children }) => {
   const location = useLocation(); // useLocation 훅으로 location 객체를 얻는다.
@@ -30,7 +30,7 @@ const Layout = ({ title, children }) => {
   return (
     <div className="global-wrapper" data-is-root-path={isRootPath}>
       <header className="global-header">{header}</header>
-      {/* <Bio /> */}
+      <Bio />
       <div className="content-wrapper">
         <Sidebar/>
         <main>{children}</main>
