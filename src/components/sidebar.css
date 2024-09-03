@@ -23,3 +23,9 @@
   width: var(--maxWidth-xs); 
   /* flex: 0 0 var(--maxWidth-xs); 사이드바의 너비 고정 */
 }
+
+.sidebar-allpost{
+ /* color: #000000 !important; */
+ font-size: x-large;
+ font-weight: bold;
+}

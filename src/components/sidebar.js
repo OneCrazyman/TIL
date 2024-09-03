@@ -6,6 +6,7 @@ const Sidebar = () => {
   const data = useStaticQuery(graphql`
     query {
       allMarkdownRemark {
+      totalCount
         group(field: {fields: {category: SELECT}}) {
           fieldValue
           totalCount
@@ -18,6 +19,14 @@ const Sidebar = () => {
     <div className="sidebar-wrapper">
       <h2>Categories</h2>
       <ul>
+        {/* All Posts item */}
+        <li>
+          <Link className="sidebar-allpost" to="/">
+            All Posts ({data.allMarkdownRemark.totalCount})
+          </Link>
+        </li>
+        {/* <hr></hr> */}
+        {/* Category items */}
         {data.allMarkdownRemark.group.map(category => (
           <li key={category.fieldValue}>
             <Link to={`/category/${category.fieldValue}/`}>
