@@ -22,6 +22,7 @@ module.exports = {
     },
   },
   plugins: [
+    `gatsby-plugin-mdx`,
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,
