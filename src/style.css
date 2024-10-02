@@ -235,9 +235,13 @@ a:focus {
 }
 
 /*적용 안됨 추후 확인*/
-pre[class*="language-"] {
+/* pre[class*="language-"] {
   font-family: 'nanum-gothic-coding';
 }
+
+code {
+  font-family: 'Noto Sans KR', sans-serif;
+} */
 
 /* Custom classes */
 
