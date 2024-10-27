@@ -59,6 +59,13 @@ module.exports = {
               noInlineHighlight: false,
               showLineNumbers: true,
             }
+          },
+          {
+            resolve: `gatsby-remark-external-links`,
+            options: {
+              target: `_blank`,
+              rel: `noopener noreferrer`
+            }
           }
         ],
       },
