@@ -12,7 +12,8 @@ http://www.kocw.net/home/search/kemView.do?kemId=1169634
 https://covenant.tistory.com/222
 
 ### 컴퓨터 구조
-- 영남대 최규상 교수님
+- 영남대 최규상 교수님 
+    http://www.kocw.net/home/search/kemView.do?kemId=1125218
 - 교재 David A. Patterson,John L. Hennessy
 ### 운영 체제
 - SNUON 홍성수(서울대)
