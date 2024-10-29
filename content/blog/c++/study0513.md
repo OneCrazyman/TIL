@@ -214,7 +214,3 @@ int main()
 	- char str[] = "C Bible"; // 배열의 크기는 7이 된다.
 
 ![alt text](image-7.png)
-
-__참고 및 출처__  
-명품 C++ Programming  
-자료 출처: © Chang Seung Kim

@@ -138,7 +138,3 @@ unsigned long long factorial(unsigned int n) {
 __재귀 함수의 구조__  
 - 순환 호출을 하는 부분
 - 순환 호출을 멈추는 부분 : 이 조건이 없으면 무한 루프에 빠지게 된다.
-
-__참고 및 출처__
-명품 C++ Programming  
-자료 출처: © Chang Seung Kim

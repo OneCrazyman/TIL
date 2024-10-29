@@ -124,7 +124,3 @@ Car(const Car &obj) : speed(obj.speed), gear(obj.gear), color(obj.color)
 
 #### 해결법
 - 직접 복사 생성자를 구현 (deep copy)
-
-__참고 및 출처__  
-명품 C++ Programming  
-자료 출처: © Chang Seung Kim
