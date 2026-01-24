@@ -18,5 +18,8 @@
     "marked": "^17.0.1",
     "prismjs": "^1.30.0",
     "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@astrojs/sitemap": "^3.7.0"
   }
 }
