@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { marked } from 'marked';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import matter from 'gray-matter';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const aboutPath = path.join(__dirname, '../../content/about.md');
+
+let aboutContent = '';
+let htmlContent = '';
+
+if (fs.existsSync(aboutPath)) {
+	const fileContents = fs.readFileSync(aboutPath, 'utf8');
+	const { data, content } = matter(fileContents);
+	aboutContent = content;
+	htmlContent = marked.parse(aboutContent);
+}
+---
+
+<BaseLayout title="소개 - 개발 아카이브">
+	<div class="max-w-3xl mx-auto">
+		<article class="prose prose-lg max-w-none text-center">
+			<div set:html={htmlContent} />
+		</article>
+	</div>
+</BaseLayout>
+
+<style is:global>
+	.prose {
+		@apply text-gray-800 leading-relaxed;
+		text-align: center;
+	}
+	
+	.prose h1 {
+		@apply text-4xl font-bold mt-12 mb-6 text-gray-900;
+		text-align: center;
+	}
+	
+	.prose h2 {
+		@apply text-3xl font-bold mt-10 mb-4 text-gray-900;
+		text-align: center;
+	}
+	
+	.prose h3 {
+		@apply text-2xl font-bold mt-8 mb-3 text-gray-900;
+		text-align: center;
+	}
+	
+	.prose p {
+		@apply mb-6;
+		line-height: 1.8;
+		text-align: center;
+	}
+	
+	.prose ul {
+		@apply mb-6;
+		list-style-type: none;
+		text-align: center;
+		display: inline-block;
+	}
+	
+	.prose li {
+		@apply mb-2;
+		line-height: 1.7;
+		text-align: left;
+	}
+	
+	.prose a {
+		@apply text-blue-600 hover:text-blue-800;
+		text-decoration: none;
+		border-bottom: 1px solid #3b82f6;
+		transition: all 0.2s;
+	}
+	
+	.prose a:hover {
+		border-bottom-color: #1e40af;
+	}
+	
+	.prose strong {
+		@apply font-bold text-gray-900;
+	}
+	.prose img {
+		width: 28px;
+		display: inline-block;
+		margin: 0 6px;
+	}
+	.prose a {
+ 		 border-bottom: none;
+	}
+</style>

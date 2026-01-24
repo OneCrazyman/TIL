@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPostsByTag, getAllTags } from '../../utils/posts';
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale/ko';
+
+export async function getStaticPaths() {
+	const tags = getAllTags();
+	return tags.map((tag) => ({
+		params: { tag },
+	}));
+}
+
+const { tag } = Astro.params;
+const posts = getPostsByTag(tag || '');
+---
+
+<BaseLayout title={`${tag} 태그 - 개발 아카이브`}>
+	<div class="space-y-8">
+		<div class="border-b border-gray-200 pb-6">
+			<h1 class="text-3xl font-bold text-gray-900 mb-2">태그: {tag}</h1>
+			<p class="text-gray-600">{posts.length}개의 포스트</p>
+		</div>
+
+		<div class="grid gap-6">
+			{posts.map((post) => (
+				<article class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition">
+					<div class="flex items-center gap-2 mb-3">
+						<span class={`px-2 py-1 text-xs font-semibold rounded ${
+							post.category === 'articles' 
+								? 'bg-blue-100 text-blue-800' 
+								: 'bg-green-100 text-green-800'
+						}`}>
+							{post.category === 'articles' ? '기술 아티클' : 'TIL'}
+						</span>
+						<span class="text-sm text-gray-500">{post.subcategory}</span>
+					</div>
+					<h2 class="text-2xl font-bold mb-2">
+						<a 
+							href={`/${post.category}/${post.subcategory}/${post.slug}`}
+							class="hover:text-blue-600 transition"
+						>
+							{post.title}
+						</a>
+					</h2>
+					{post.description && (
+						<p class="text-gray-600 mb-3">{post.description}</p>
+					)}
+					{post.tags && post.tags.length > 0 && (
+						<div class="flex flex-wrap gap-2 mb-3">
+							{post.tags.map((t) => (
+								<a 
+									href={`/tag/${t}`}
+									class="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition"
+								>
+									#{t}
+								</a>
+							))}
+						</div>
+					)}
+					<div class="flex items-center justify-between text-sm text-gray-500">
+						<time>
+							{format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
+						</time>
+						<a 
+							href={`/${post.category}/${post.subcategory}/${post.slug}`}
+							class="text-blue-600 hover:text-blue-800 font-medium"
+						>
+							읽기 →
+						</a>
+					</div>
+				</article>
+			))}
+		</div>
+	</div>
+</BaseLayout>

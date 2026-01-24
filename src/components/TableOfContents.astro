@@ -1,0 +1,106 @@
+---
+interface Props {
+	toc: Array<{ id: string; text: string; level: number }>;
+}
+
+const { toc } = Astro.props;
+---
+
+<aside id="toc-sidebar" class="hidden lg:block fixed right-8 top-24 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto">
+	<div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+		<h3 class="text-sm font-semibold text-gray-900 mb-3">목차</h3>
+		<nav class="space-y-1">
+			{toc.map((item) => (
+				<a
+					href={`#${item.id}`}
+					data-level={item.level}
+					class={`block text-sm text-gray-600 hover:text-blue-600 transition-colors toc-item ${
+						item.level === 1 ? 'font-semibold' : item.level === 2 ? 'ml-4' : 'ml-8'
+					}`}
+				>
+					{item.text}
+				</a>
+			))}
+		</nav>
+	</div>
+</aside>
+
+<style>
+	.toc-item {
+		line-height: 1.6;
+		padding: 0.25rem 0;
+	}
+	
+	.toc-item.active {
+		@apply text-blue-600 font-medium;
+	}
+	
+	#toc-sidebar {
+		scrollbar-width: thin;
+		scrollbar-color: #cbd5e0 #f7fafc;
+	}
+	
+	#toc-sidebar::-webkit-scrollbar {
+		width: 4px;
+	}
+	
+	#toc-sidebar::-webkit-scrollbar-track {
+		background: #f7fafc;
+	}
+	
+	#toc-sidebar::-webkit-scrollbar-thumb {
+		background: #cbd5e0;
+		border-radius: 2px;
+	}
+</style>
+
+<script>
+	// 스크롤 시 현재 섹션 하이라이트
+	function updateActiveTocItem() {
+		const headings = document.querySelectorAll('h1[id], h2[id], h3[id]');
+		const tocItems = document.querySelectorAll('.toc-item');
+		
+		if (headings.length === 0 || tocItems.length === 0) return;
+		
+		let current = '';
+		const scrollPosition = window.scrollY + 100;
+		
+		headings.forEach((heading) => {
+			const top = (heading as HTMLElement).offsetTop;
+			if (scrollPosition >= top) {
+				current = heading.id;
+			}
+		});
+		
+		tocItems.forEach((item) => {
+			const href = item.getAttribute('href');
+			if (href === `#${current}`) {
+				item.classList.add('active');
+			} else {
+				item.classList.remove('active');
+			}
+		});
+	}
+	
+	// 부드러운 스크롤
+	document.addEventListener('DOMContentLoaded', () => {
+		const tocItems = document.querySelectorAll('.toc-item');
+		
+		tocItems.forEach((item) => {
+			item.addEventListener('click', (e) => {
+				e.preventDefault();
+				const href = item.getAttribute('href');
+				if (href) {
+					const target = document.querySelector(href);
+					if (target) {
+						target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					}
+				}
+			});
+		});
+		
+		// 스크롤 이벤트 리스너
+		window.addEventListener('scroll', updateActiveTocItem);
+		updateActiveTocItem();
+	});
+</script>

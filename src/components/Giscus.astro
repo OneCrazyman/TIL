@@ -1,0 +1,45 @@
+---
+const repo = import.meta.env.PUBLIC_GISCUS_REPO;
+const repoId = import.meta.env.PUBLIC_GISCUS_REPO_ID;
+const category = import.meta.env.PUBLIC_GISCUS_CATEGORY;
+const categoryId = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID;
+
+// 환경변수 없으면(설정 누락) 댓글 영역 숨김
+const enabled = repo && repoId && category && categoryId;
+
+// 옵션
+const mapping = "pathname";
+const strict = "0";
+const reactionsEnabled = "1";
+const emitMetadata = "0";
+const inputPosition = "bottom";
+const theme = "preferred_color_scheme";
+const lang = "ko";
+---
+
+{enabled ? (
+  <section class="giscus">
+    <script
+      src="https://giscus.app/client.js"
+      data-repo={repo}
+      data-repo-id={repoId}
+      data-category={category}
+      data-category-id={categoryId}
+      data-mapping={mapping}
+      data-strict={strict}
+      data-reactions-enabled={reactionsEnabled}
+      data-emit-metadata={emitMetadata}
+      data-input-position={inputPosition}
+      data-theme={theme}
+      data-lang={lang}
+      crossorigin="anonymous"
+      async
+    />
+  </section>
+) : null}
+
+<style>
+  .giscus {
+    margin-top: 2rem;
+  }
+</style>

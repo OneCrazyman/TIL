@@ -1,0 +1,57 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = '개발 아카이브 블로그' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-gray-50 text-gray-900 antialiased">
+		<header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+			<nav class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+				<div class="flex justify-between items-center h-16">
+					<a href="/" class="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+						개발 아카이브
+					</a>
+					<div class="flex items-center space-x-8">
+						<a href="/articles" class="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+							기술 아티클
+						</a>
+						<a href="/til" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+							TIL
+						</a>
+						<a href="/about" class="text-gray-700 hover:text-purple-600 transition-colors font-medium">
+							소개
+						</a>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<main class="min-h-screen w-full">
+			<div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+				<slot />
+			</div>
+		</main>
+		<footer class="bg-white border-t border-gray-200 mt-20">
+			<div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-12">
+				<div class="text-center text-gray-600">
+					<p class="mb-2">&copy; {new Date().getFullYear()} 개발 아카이브. All rights reserved.</p>
+					<p class="text-sm text-gray-500">기술 아티클과 TIL을 기록하는 공간</p>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

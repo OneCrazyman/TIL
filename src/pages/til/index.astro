@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllPosts, getSubcategories, type Category } from '../../utils/posts';
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale/ko';
+
+const category: Category = 'til';
+const posts = getAllPosts(category);
+const subcategories = getSubcategories(category);
+---
+
+<BaseLayout title="TIL - 개발 아카이브">
+	<div class="space-y-8">
+		<div class="text-center py-8">
+			<h1 class="text-4xl font-bold text-gray-900 mb-4">TIL (Today I Learned)</h1>
+			<p class="text-lg text-gray-600">가벼운 학습 기록들</p>
+		</div>
+
+		<div class="flex flex-wrap gap-2 mb-8">
+			<a 
+				href="/til" 
+				class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+			>
+				전체
+			</a>
+			{subcategories.map((sub) => (
+				<a 
+					href={`/til/${sub}`}
+					class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+				>
+					{sub}
+				</a>
+			))}
+		</div>
+
+		<div class="grid gap-6">
+			{posts.map((post) => (
+				<article class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
+					<div class="flex items-center gap-2 mb-2">
+						<span class="px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+							{post.subcategory}
+						</span>
+					</div>
+					<h2 class="text-2xl font-bold mb-2">
+						<a 
+							href={`/${post.category}/${post.subcategory}/${post.slug}`}
+							class="hover:text-green-600 transition"
+						>
+							{post.title}
+						</a>
+					</h2>
+					{post.description && (
+						<p class="text-gray-600 mb-3">{post.description}</p>
+					)}
+					{post.tags && post.tags.length > 0 && (
+						<div class="flex flex-wrap gap-2 mb-3">
+							{post.tags.map((tag) => (
+								<a 
+									href={`/tag/${tag}`}
+									class="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition"
+								>
+									#{tag}
+								</a>
+							))}
+						</div>
+					)}
+					<div class="flex items-center justify-between text-sm text-gray-500">
+						<time>
+							{format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
+						</time>
+						<a 
+							href={`/${post.category}/${post.subcategory}/${post.slug}`}
+							class="text-green-600 hover:text-green-800 font-medium"
+						>
+							읽기 →
+						</a>
+					</div>
+				</article>
+			))}
+		</div>
+	</div>
+</BaseLayout>

@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllPosts, getSubcategories, type Category } from '../../utils/posts';
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale/ko';
+
+export async function getStaticPaths() {
+	const category: Category = 'til';
+	const subcategories = getSubcategories(category);
+	return subcategories.map((sub) => ({
+		params: {
+			subcategory: sub,
+		},
+	}));
+}
+
+const { subcategory } = Astro.params;
+const category: Category = 'til';
+
+if (!subcategory) {
+	return Astro.redirect('/til');
+}
+
+const allPosts = getAllPosts(category);
+const posts = allPosts.filter((post) => post.subcategory === subcategory);
+
+if (posts.length === 0) {
+	return Astro.redirect('/til');
+}
+---
+
+<BaseLayout title={`${subcategory} - TIL - 개발 아카이브`}>
+	<div class="space-y-8">
+		<div class="text-center py-8">
+			<h1 class="text-4xl font-bold text-gray-900 mb-4">TIL: {subcategory}</h1>
+			<p class="text-lg text-gray-600">
+				<a href="/til" class="text-green-600 hover:text-green-800">
+					← 모든 TIL로 돌아가기
+				</a>
+			</p>
+		</div>
+
+		<div class="grid gap-6">
+			{posts.map((post) => (
+				<article class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
+					<h2 class="text-2xl font-bold mb-2">
+						<a 
+							href={`/${post.category}/${post.subcategory}/${post.slug}`}
+							class="hover:text-green-600 transition"
+						>
+							{post.title}
+						</a>
+					</h2>
+					{post.description && (
+						<p class="text-gray-600 mb-3">{post.description}</p>
+					)}
+					<div class="flex items-center justify-between text-sm text-gray-500">
+						<time>
+							{format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
+						</time>
+						<a 
+							href={`/${post.category}/${post.subcategory}/${post.slug}`}
+							class="text-green-600 hover:text-green-800 font-medium"
+						>
+							읽기 →
+						</a>
+					</div>
+				</article>
+			))}
+		</div>
+	</div>
+</BaseLayout>

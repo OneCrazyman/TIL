@@ -1,0 +1,270 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPostBySlug, getAllPosts, type Category } from '../utils/posts';
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale/ko';
+import Giscus from '../components/Giscus.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { marked } from 'marked';
+import { extractTocFromMarkdown, addIdsToHeadings } from '../utils/toc';
+
+export async function getStaticPaths() {
+	const posts = getAllPosts();
+	return posts.map((post) => ({
+		params: {
+			slug: `${post.category}/${post.subcategory}/${post.slug}`,
+		},
+	}));
+}
+
+const { slug } = Astro.params;
+const pathParts = slug?.split('/') || [];
+
+if (pathParts.length < 3) {
+	return Astro.redirect('/');
+}
+
+const [category, subcategory, postSlug] = pathParts as [Category, string, string];
+
+const post = getPostBySlug(category, subcategory, postSlug);
+
+if (!post) {
+	return Astro.redirect('/');
+}
+
+// 이미지 경로 처리: content/{category}/{subcategory}/image/... 형태로 변환
+let processedContent = post.content.replace(
+	/!\[([^\]]*)\]\(([^)]+)\)/g,
+	(match, alt, src) => {
+		// 이미 절대 URL이면 그대로 사용
+		if (src.startsWith('http') || src.startsWith('//')) {
+			return match;
+		}
+		// 이미 절대 경로면 그대로 사용
+		if (src.startsWith('/')) {
+			return match;
+		}
+		// 상대 경로를 절대 경로로 변환
+		const imagePath = `/content/${post.path}/image/${src}`;
+		return `![${alt}](${imagePath})`;
+	}
+);
+
+// 목차 추출
+const toc = extractTocFromMarkdown(processedContent);
+
+// 마크다운을 HTML로 변환 (코드 블록은 클라이언트에서 Prism으로 하이라이팅)
+let htmlContent = marked.parse(processedContent);
+
+// HTML 헤딩에 id 추가
+htmlContent = addIdsToHeadings(htmlContent, toc);
+
+// Giscus 설정 (환경 변수에서 가져오거나 직접 설정)
+const giscusRepo = import.meta.env.PUBLIC_GISCUS_REPO || '';
+const giscusRepoId = import.meta.env.PUBLIC_GISCUS_REPO_ID || '';
+const giscusCategory = import.meta.env.PUBLIC_GISCUS_CATEGORY || 'General';
+const giscusCategoryId = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID || '';
+---
+
+<BaseLayout title={`${post.title} - 개발 아카이브`} description={post.description}>
+	<div class="relative">
+		<article class="max-w-4xl mx-auto w-full">
+		<!-- 헤더 -->
+		<header class="mb-12 pb-8 border-b border-gray-200">
+			<div class="flex items-center gap-3 mb-4">
+				<a 
+					href={`/${category}`}
+					class={`px-3 py-1.5 text-sm font-semibold rounded-md ${
+						category === 'articles' 
+							? 'bg-blue-50 text-blue-700 border border-blue-200' 
+							: 'bg-green-50 text-green-700 border border-green-200'
+					}`}
+				>
+					{category === 'articles' ? '기술 아티클' : 'TIL'}
+				</a>
+				<a 
+					href={`/${category}/${subcategory}`}
+					class="text-sm text-gray-600 hover:text-blue-600 transition"
+				>
+					{subcategory}
+				</a>
+			</div>
+			<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+				{post.title}
+			</h1>
+			{post.description && (
+				<p class="text-xl text-gray-600 mb-6 leading-relaxed">{post.description}</p>
+			)}
+			<div class="flex items-center gap-4 text-sm text-gray-500">
+				<time>
+					{format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
+				</time>
+				{post.tags && post.tags.length > 0 && (
+					<div class="flex flex-wrap gap-2">
+						{post.tags.map((tag) => (
+							<a 
+								href={`/tag/${tag}`}
+								class="px-2 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition"
+							>
+								#{tag}
+							</a>
+						))}
+					</div>
+				)}
+			</div>
+		</header>
+
+		<!-- 본문 -->
+		<div class="prose prose-lg max-w-none mb-16" set:html={htmlContent} data-toc="true" />
+
+		<!-- 댓글 -->
+		{giscusRepo && giscusRepoId && (
+			<div class="mt-16 pt-8 border-t border-gray-200">
+				<Giscus 
+					repo={giscusRepo}
+					repoId={giscusRepoId}
+					category={giscusCategory}
+					categoryId={giscusCategoryId}
+				/>
+			</div>
+		)}
+		</article>
+		
+		<!-- 목차 사이드바 -->
+		{toc.length > 0 && <TableOfContents toc={toc} />}
+	</div>
+</BaseLayout>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script is:inline>
+	document.addEventListener('DOMContentLoaded', function() {
+		if (typeof Prism !== 'undefined') {
+			Prism.highlightAll();
+		}
+	});
+</script>
+
+
+<style is:global>
+	.prose {
+		@apply text-gray-800 leading-relaxed;
+		color: #1f2937;
+		line-height: 1.75;
+	}
+	
+	.prose h1 {
+		@apply text-4xl font-bold mt-12 mb-6 text-gray-900;
+		border-bottom: 2px solid #e5e7eb;
+		padding-bottom: 0.5rem;
+	}
+	
+	.prose h2 {
+		@apply text-3xl font-bold mt-10 mb-4 text-gray-900;
+		border-bottom: 1px solid #e5e7eb;
+		padding-bottom: 0.5rem;
+	}
+	
+	.prose h3 {
+		@apply text-2xl font-bold mt-8 mb-3 text-gray-900;
+	}
+	
+	.prose h4 {
+		@apply text-xl font-bold mt-6 mb-2 text-gray-900;
+	}
+	
+	.prose p {
+		@apply mb-6;
+		line-height: 1.8;
+	}
+	
+	.prose ul, .prose ol {
+		@apply mb-6 ml-6;
+	}
+	
+	.prose ul {
+		list-style-type: disc;
+	}
+	
+	.prose ol {
+		list-style-type: decimal;
+	}
+	
+	.prose li {
+		@apply mb-2;
+		line-height: 1.7;
+	}
+	
+	.prose li > ul, .prose li > ol {
+		@apply mt-2 mb-0;
+	}
+	
+	.prose code:not(pre code) {
+		@apply bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono;
+		color: #e83e8c;
+		font-size: 0.9em;
+	}
+	
+	.prose pre {
+		@apply mb-6 rounded-lg overflow-x-auto;
+		background: #2d3748 !important;
+		padding: 1.25rem;
+		border: 1px solid #4a5568;
+	}
+	
+	.prose pre code {
+		@apply bg-transparent p-0 text-sm;
+		color: #e2e8f0 !important;
+		font-size: 0.875rem;
+		line-height: 1.6;
+	}
+	
+	.prose img {
+		@apply rounded-lg shadow-lg my-8;
+		max-width: 100%;
+		height: auto;
+	}
+	
+	.prose a {
+		@apply text-blue-600 hover:text-blue-800;
+		text-decoration: none;
+		border-bottom: 1px solid #3b82f6;
+		transition: all 0.2s;
+	}
+	
+	.prose a:hover {
+		border-bottom-color: #1e40af;
+	}
+	
+	.prose blockquote {
+		@apply border-l-4 border-blue-500 pl-6 italic text-gray-700 my-6;
+		background: #f7fafc;
+		padding: 1rem;
+		border-radius: 0.25rem;
+	}
+	
+	.prose table {
+		@apply w-full mb-6 border-collapse;
+	}
+	
+	.prose table th {
+		@apply bg-gray-100 font-semibold p-3 text-left border border-gray-300;
+	}
+	
+	.prose table td {
+		@apply p-3 border border-gray-300;
+	}
+	
+	.prose hr {
+		@apply my-8 border-gray-300;
+	}
+	
+	.prose strong {
+		@apply font-bold text-gray-900;
+	}
+	
+	.prose em {
+		@apply italic;
+	}
+</style>

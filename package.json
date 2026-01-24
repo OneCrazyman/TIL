@@ -1,62 +1,22 @@
 {
-  "name": "gatsby-starter-blog",
-  "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  "name": "til-blog",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "node scripts/copy-content.js && astro dev",
+    "build": "node scripts/copy-content.js && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@fontsource-variable/montserrat": "^5.0.17",
-    "@fontsource/merriweather": "^5.0.8",
-    "@fontsource/nanum-gothic": "^5.0.17",
-    "@fontsource/nanum-gothic-coding": "^5.0.17",
-    "@fontsource/noto-sans-kr": "^5.0.17",
-    "@mdx-js/react": "^2.3.0",
-    "babel-plugin-styled-components": "^2.1.4",
-    "gatsby": "^5.13.3",
-    "gatsby-plugin-feed": "^5.13.1",
-    "gatsby-plugin-image": "^3.13.1",
-    "gatsby-plugin-manifest": "^5.13.1",
-    "gatsby-plugin-mdx": "^5.13.1",
-    "gatsby-plugin-sharp": "^5.13.1",
-    "gatsby-plugin-styled-components": "^6.13.1",
-    "gatsby-remark-code-buttons": "^2.0.7",
-    "gatsby-remark-external-links": "^0.0.4",
-    "gatsby-remark-images": "^7.13.1",
-    "gatsby-remark-prismjs": "^7.13.1",
-    "gatsby-remark-responsive-iframe": "^6.13.1",
-    "gatsby-source-filesystem": "^5.13.1",
-    "gatsby-transformer-remark": "^6.13.1",
-    "gatsby-transformer-sharp": "^5.13.1",
-    "gh-pages": "^6.1.1",
-    "prism-react-renderer": "^2.3.1",
-    "prismjs": "^1.29.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "styled-components": "^6.1.8"
-  },
-  "devDependencies": {
-    "prettier": "^2.8.8"
-  },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "0BSD",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
-  },
-  "scripts": {
-    "build": "gatsby build --prefix-paths",
-    "develop": "gatsby develop -p 9000",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "gatsby develop",
-    "serve": "gatsby serve --prefix-paths",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public -b deploy"
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/tailwind": "^6.0.2",
+    "@types/prismjs": "^1.26.5",
+    "astro": "^5.16.15",
+    "date-fns": "^4.1.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.1",
+    "prismjs": "^1.30.0",
+    "remark-gfm": "^4.0.1"
   }
 }
