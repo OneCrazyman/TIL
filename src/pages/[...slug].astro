@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getPostBySlug, getAllPosts, type Category } from '../utils/posts';
 import { format } from 'date-fns';
@@ -32,20 +32,21 @@ if (!post) {
 	return Astro.redirect('/');
 }
 
-// 이미지 경로 처리: content/{category}/{subcategory}/image/... 형태로 변환
+// 이미지 경로 처리: content/{category}/{subcategory}/... 형태로 변환
 let processedContent = post.content.replace(
 	/!\[([^\]]*)\]\(([^)]+)\)/g,
 	(match, alt, src) => {
-		// 이미 절대 URL이면 그대로 사용
+		// 이미지 URL이면 그대로 사용
 		if (src.startsWith('http') || src.startsWith('//')) {
 			return match;
 		}
-		// 이미 절대 경로면 그대로 사용
+		// 이미지가 절대 경로면 그대로 사용
 		if (src.startsWith('/')) {
 			return match;
 		}
 		// 상대 경로를 절대 경로로 변환
-		const imagePath = `/content/${post.path}/image/${src}`;
+		const normalizedSrc = src.replace(/^\.\//, '');
+		const imagePath = `/content/${category}/${subcategory}/${normalizedSrc}`;
 		return `![${alt}](${imagePath})`;
 	}
 );
@@ -53,8 +54,48 @@ let processedContent = post.content.replace(
 // 목차 추출
 const toc = extractTocFromMarkdown(processedContent);
 
-// 마크다운을 HTML로 변환 (코드 블록은 클라이언트에서 Prism으로 하이라이팅)
+const languageAliasMap: Record<string, string> = {
+	'c++': 'cpp',
+	cpp: 'cpp',
+	'c#': 'csharp',
+	cs: 'csharp',
+	py: 'python',
+	python: 'python',
+	js: 'javascript',
+	javascript: 'javascript',
+	ts: 'typescript',
+	typescript: 'typescript',
+	ter: 'bash',
+	terminal: 'bash',
+	shell: 'bash',
+	sh: 'bash',
+	zsh: 'bash',
+	bash: 'bash',
+	cmd: 'batch',
+	bat: 'batch',
+	ps: 'powershell',
+	ps1: 'powershell',
+	sql: 'sql',
+	html: 'html',
+	css: 'css',
+	json: 'json',
+	yaml: 'yaml',
+	yml: 'yaml',
+	c: 'c',
+};
+
+function normalizeLanguageClass(language: string) {
+	const key = language.trim().toLowerCase();
+	return languageAliasMap[key] ?? key;
+}
+
+// 마크다운을 HTML로 변환(코드 블록은 클라이언트에서 Prism으로 하이라이트)
 let htmlContent = marked.parse(processedContent);
+
+htmlContent = htmlContent.replace(/class="language-([^"]+)"/g, (_match, lang) => {
+	const normalized = normalizeLanguageClass(lang);
+	return `class="language-${normalized}"`;
+});
 
 // HTML 헤딩에 id 추가
 htmlContent = addIdsToHeadings(htmlContent, toc);
@@ -67,6 +108,25 @@ const giscusCategoryId = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID || '';
 ---
 
 <BaseLayout title={`${post.title} - 개발 아카이브`} description={post.description}>
+	<Fragment slot="head">
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+		/>
+		<script is:inline defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+		<script is:inline defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+		<script is:inline defer>
+			document.addEventListener('DOMContentLoaded', function() {
+				if (typeof Prism !== 'undefined') {
+					if (Prism.plugins && Prism.plugins.autoloader) {
+						Prism.plugins.autoloader.languages_path =
+							'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/';
+					}
+					Prism.highlightAll();
+				}
+			});
+		</script>
+	</Fragment>
 	<div class="relative">
 		<article class="max-w-4xl mx-auto w-full">
 		<!-- 헤더 -->
@@ -102,12 +162,12 @@ const giscusCategoryId = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID || '';
 				{post.tags && post.tags.length > 0 && (
 					<div class="flex flex-wrap gap-2">
 						{post.tags.map((tag) => (
-							<a 
-								href={`/tag/${tag}`}
-								class="px-2 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition"
-							>
-								#{tag}
-							</a>
+						<a 
+							href={`/tag/${tag}`}
+							class="px-2 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition"
+						>
+							#{tag}
+						</a>
 						))}
 					</div>
 				)}
@@ -135,18 +195,6 @@ const giscusCategoryId = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID || '';
 	</div>
 </BaseLayout>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<script is:inline>
-	document.addEventListener('DOMContentLoaded', function() {
-		if (typeof Prism !== 'undefined') {
-			Prism.highlightAll();
-		}
-	});
-</script>
-
-
 <style is:global>
 	.prose {
 		@apply text-gray-800 leading-relaxed;
@@ -158,16 +206,19 @@ const giscusCategoryId = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID || '';
 		@apply text-4xl font-bold mt-12 mb-6 text-gray-900;
 		border-bottom: 2px solid #e5e7eb;
 		padding-bottom: 0.5rem;
+		scroll-margin-top: 6rem;
 	}
 	
 	.prose h2 {
 		@apply text-3xl font-bold mt-10 mb-4 text-gray-900;
 		border-bottom: 1px solid #e5e7eb;
 		padding-bottom: 0.5rem;
+		scroll-margin-top: 6rem;
 	}
 	
 	.prose h3 {
 		@apply text-2xl font-bold mt-8 mb-3 text-gray-900;
+		scroll-margin-top: 6rem;
 	}
 	
 	.prose h4 {

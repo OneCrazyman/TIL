@@ -1,4 +1,4 @@
----
+﻿---
 interface Props {
 	toc: Array<{ id: string; text: string; level: number }>;
 }
@@ -94,6 +94,7 @@ const { toc } = Astro.props;
 					const target = document.querySelector(href);
 					if (target) {
 						target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						history.replaceState(null, '', href);
 					}
 				}
 			});
