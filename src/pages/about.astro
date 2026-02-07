@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { marked } from 'marked';
+import { parseMarkdown } from '../utils/markdown';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -17,7 +17,7 @@ if (fs.existsSync(aboutPath)) {
 	const fileContents = fs.readFileSync(aboutPath, 'utf8');
 	const { data, content } = matter(fileContents);
 	aboutContent = content;
-	htmlContent = marked.parse(aboutContent);
+	htmlContent = parseMarkdown(aboutContent);
 }
 ---
 

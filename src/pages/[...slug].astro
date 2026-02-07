@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { ko } from 'date-fns/locale/ko';
 import Giscus from '../components/Giscus.astro';
 import TableOfContents from '../components/TableOfContents.astro';
-import { marked } from 'marked';
+import { parseMarkdown } from '../utils/markdown';
 import { extractTocFromMarkdown, addIdsToHeadings } from '../utils/toc';
 
 export async function getStaticPaths() {
@@ -90,7 +90,7 @@ function normalizeLanguageClass(language: string) {
 }
 
 // 마크다운을 HTML로 변환(코드 블록은 클라이언트에서 Prism으로 하이라이트)
-let htmlContent = marked.parse(processedContent);
+let htmlContent = parseMarkdown(processedContent);
 
 htmlContent = htmlContent.replace(/class="language-([^"]+)"/g, (_match, lang) => {
 	const normalized = normalizeLanguageClass(lang);
