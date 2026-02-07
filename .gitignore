@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # Astro
 .astro/
+
+# generated content for local test
+public/content/

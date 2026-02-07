@@ -111,20 +111,27 @@ const giscusCategoryId = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID || '';
 	<Fragment slot="head">
 		<link
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+			href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
 		/>
-		<script is:inline defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-		<script is:inline defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-		<script is:inline defer>
-			document.addEventListener('DOMContentLoaded', function() {
-				if (typeof Prism !== 'undefined') {
+		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+		<script is:inline>
+			(function () {
+				function highlight() {
+					if (typeof Prism === 'undefined') return;
 					if (Prism.plugins && Prism.plugins.autoloader) {
 						Prism.plugins.autoloader.languages_path =
 							'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/';
 					}
 					Prism.highlightAll();
 				}
-			});
+
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', highlight);
+				} else {
+					highlight();
+				}
+			})();
 		</script>
 	</Fragment>
 	<div class="relative">
@@ -259,14 +266,11 @@ const giscusCategoryId = import.meta.env.PUBLIC_GISCUS_CATEGORY_ID || '';
 	
 	.prose pre {
 		@apply mb-6 rounded-lg overflow-x-auto;
-		background: #2d3748 !important;
 		padding: 1.25rem;
-		border: 1px solid #4a5568;
 	}
 	
 	.prose pre code {
 		@apply bg-transparent p-0 text-sm;
-		color: #e2e8f0 !important;
 		font-size: 0.875rem;
 		line-height: 1.6;
 	}
